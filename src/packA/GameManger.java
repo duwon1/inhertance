@@ -10,6 +10,7 @@ public class GameManger {
         Unit m = new Marine();
         Unit z = new Juggling();
         m.showSpec(); // 유닛 스펙 불러오기
+        System.out.println("=====================================");
         z.showSpec();
 
         while(true) {
@@ -48,6 +49,7 @@ public class GameManger {
             z.setHp(z.getMaxHp()); // 저글링 풀피로 채우기
 
             m.showSpec();
+            System.out.println("=====================================");
             z.showSpec();
 
         }
