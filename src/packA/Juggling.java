@@ -6,10 +6,14 @@ public class Juggling extends Unit {
         super("저글링", 35, 5, 0);
     }
 
-    public void amrUp() {
-        setAmr(getAmr() + 1);
-        System.out.println("저글링의 방어력이 1올랐습니다");
-        System.out.println("저글링의 현재 방어력 : " + getAmr());
+    public void upGrade(Unit u) {
+        GameManger g = new GameManger();
+        u.setAmr(getAmr() + 0.5f); // 방어력 0.5 증가
+        u.setDmg(getDmg() + 1); // 공격력 1 증가
+
+        if(g.getWinCount() % 2 == 0) {
+            u.setMaxHp(u.getMaxHp() + 5); // 체력 5 증가
+        }
     }
 
 }

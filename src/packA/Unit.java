@@ -1,34 +1,34 @@
 package packA;
 
-public class Unit {
-    private String name;
-    private int hp;
-    private int dmg;
-    private int amr;
+import java.util.Random;
 
-    public void setAmr(int amr) {
+public abstract class Unit {
+    private String name;
+    private int maxHp;
+    private float hp;
+    private float dmg;
+    private float amr;
+
+    public void setAmr(float amr) {
         this.amr = amr;
     }
-
-    public int getAmr() {
-        return this.amr;
-    }
-
-    public int getHp() {
+    public void setMaxHp(int maxHp) { this.maxHp = maxHp; }
+    public int getMaxHp() { return this.maxHp; }
+    public float getAmr() { return this.amr; }
+    public float getHp() {
         return this.hp;
     }
-
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
+    public void setHp(float hp) { this.hp = hp; }
+    public void setDmg(float dmg) { this.dmg = dmg; }
+    public float getDmg() { return this.dmg; }
     public String getName() {
         return this.name;
     }
+    public abstract void upGrade(Unit u);
 
     public void showSpec() {
         System.out.println("이름 : " + this.name);
-        System.out.println("체력 : " + this.hp);
+        System.out.println("체력 : " + this.maxHp);
         System.out.println("공격력 : " + this.dmg);
         System.out.println("방어력 : " + this.amr);
     }
@@ -36,6 +36,7 @@ public class Unit {
     public Unit(String name, int hp, int dmg, int amr) {
         this.name = name;
         this.hp = hp;
+        this.maxHp = hp;
         this.dmg = dmg;
         this.amr = amr;
     }
@@ -46,10 +47,14 @@ public class Unit {
     }
 
     public void attack(Unit u) {
-        if(u.hp >= 0) {
-            u.hp = Math.max(0, u.hp - (this.dmg - u.amr));
-            System.out.println(this.name + "이 " + u.name + "에게 " + (this.dmg - u.amr) + "만큼의 피해를 입혔습니다");
+        if(this.hp > 0) {
+            Random r = new Random();
+            float result = (float) Math.round(r.nextFloat() * 1.5f * 10) / 10;
+            float totalDmg = this.dmg - u.amr + result;
+            u.hp =  (float) Math.round(Math.max(0, u.hp - totalDmg) * 10) / 10;
+            System.out.println(this.name + "이 " + u.name + "에게 " + totalDmg + "만큼의 피해를 입혔습니다(추가피해" + result + ")");
         }
+
     }
 
 }
