@@ -41,17 +41,19 @@ public abstract class Unit {
         this.amr = amr;
     }
 
-    public void heal(int i) {
-        System.out.println(this.name + "이 체력이 "+ i + "만큼 회복되었습니다");
-        this.hp += i;
+    public void heal() {
+        Random r = new Random();
+        int result = r.nextInt(-5,20);
+        System.out.println(this.name + "이 체력이 "+ result + "만큼 회복되었습니다");
+        this.hp += result;
     }
 
     public void attack(Unit u) {
         if(this.hp > 0) {
             Random r = new Random();
-            float result = (float) Math.round(r.nextFloat() * 1.5f * 10) / 10;
-            float totalDmg = this.dmg - u.amr + result;
-            u.hp =  (float) Math.round(Math.max(0, u.hp - totalDmg) * 10) / 10;
+            float result = (float) Math.round(r.nextFloat() * 1.5f * 10) / 10; // 0.0 ~ 1.5 사이 랜덤값을 가져옴.(추가데미지)
+            float totalDmg = this.dmg - u.amr + result; // 방어력과 데미지 추가데미지를 계산
+            u.hp =  (float) Math.round(Math.max(0, u.hp - totalDmg) * 10) / 10; // HP가 0보다 작아지지않도록 보정 및 부동소수점 해결
             System.out.println(this.name + "이 " + u.name + "에게 " + totalDmg + "만큼의 피해를 입혔습니다(추가피해" + result + ")");
         }
 

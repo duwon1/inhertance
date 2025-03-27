@@ -1,6 +1,5 @@
 package packA;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class GameManger {
@@ -8,10 +7,9 @@ public class GameManger {
     public int getWinCount() { return this.winCount; }
     public void gameStart() {
         Scanner sc = new Scanner(System.in);
-        Random rand = new Random();
         Unit m = new Marine();
         Unit z = new Juggling();
-        m.showSpec();
+        m.showSpec(); // 유닛 스펙 불러오기
         z.showSpec();
 
         while(true) {
@@ -22,7 +20,7 @@ public class GameManger {
                 m.attack(z);
                 z.attack(m);
             } else if(menu == 2) {
-                m.heal(rand.nextInt(-5,20));
+                m.heal();
                 z.attack(m);
             } else if(menu == 3) {
                 z.attack(m);
